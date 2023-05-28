@@ -88,6 +88,22 @@
             <li><a href="https://drive.google.com/drive/folders/1CwtLwTnxpnmc8Cn-dYXHCrgn833RkSKg?usp=share_link" target="_blank">進廠文件</a></li>
         </ul>
     </div>
-</div>
+    </div>
+    <div id="datetime" class="current-date-time"></div>
+    <div id="page-counter" class="page-counter"></div>
+
+    <script>
+        // Display current date and time
+        var dt = new Date();
+        document.getElementById("datetime").innerHTML = "現在時間： " + dt.toLocaleString();
+
+        // Count page visits
+        if (localStorage.pagecount){
+            localStorage.pagecount=Number(localStorage.pagecount) +1;
+        }else{
+            localStorage.pagecount=1;
+        }
+        document.getElementById("page-counter").innerHTML = "瀏覽人數： " + localStorage.pagecount;
+    </script>
 </body>
 </html>
