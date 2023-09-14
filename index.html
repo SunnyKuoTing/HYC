@@ -76,10 +76,11 @@
                 <li><a href="https://drive.google.com/uc?export=download&id=1JUzi66pDNcBjTTazvdFggDtrSVwfSANE" target="_blank">6.工程開工安全暨協議紀錄(簽名頁)</a></li>
                 <li><a href="https://drive.google.com/uc?export=download&id=1ZATYzuY40EQVq4WklgkBbIpaduDYvZvH" target="_blank">7.承攬商違反安全事項罰則</a></li>
             </ul>
-            <h2>(2)承攬商開工協議會議(依工程項目)</h2>
+            <h2>(2)承攬商工項變更/教育訓練</h2>
             <ul>
                 <li><a href="https://drive.google.com/uc?export=download&id=1JUzi66pDNcBjTTazvdFggDtrSVwfSANE" target="_blank">1.工程開工安全暨協議紀錄</a></li>
                 <li><a href="https://docs.google.com/document/d/1rtjCeFxys6XMnDguBuAYFSaHTpavEKXL/export?format=doc" target="_blank">2.再承攬合約書(有次承商填寫)</a></li>
+                <li><a href="javascript:checkPasswordForKahoot();">線上教育訓練</a></li> <!-- 密碼保護的連結 -->
                 <li><a href="https://drive.google.com/uc?export=download&id=1b81QLZx0F1fxN1wKKXLxPwsPc7e6FbtR" target="_blank">填寫範例</a></li>
             </ul>
             <h2>(3)進廠施工申請連結</h2>
@@ -111,7 +112,17 @@
     </div>
     <div id="datetime" class="current-date-time"></div>
     <div id="page-counter" class="page-counter"></div>
+    <script>
+  function checkPasswordForKahoot() {
+    var password = 22817999("請輸入密碼：");
 
+    if (password === "mypassword") {
+      window.open('https://kahoot.it/challenge/004745695', '_blank');
+    } else {
+      alert("密碼錯誤！");
+    }
+  }
+</script>
     <script>
         // Display current date and time
         var dt = new Date();
