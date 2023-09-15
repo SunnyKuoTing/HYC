@@ -41,22 +41,25 @@
         h2 {
             text-align: left;
         }
-        /* 样式大項標題 */
-.section h2 {
+        .section {
     border: 2px solid #007bff;
     background-color: #f0f8ff;
-    padding: 5px;
+    padding: 10px;
     border-radius: 5px;
     margin-top: 20px;
 }
 
+/* 样式大項標題 */
+.section h2 {
+    margin: 0;
+}
+
 /* 样式連結 */
 .section ul li a {
-    border: 2px solid #007bff;
-    background-color: #f0f8ff;
-    padding: 5px;
-    border-radius: 5px;
-    display: inline-block;
+    border: none; /* 移除連結的邊框，以使整個區塊樣式更統一 */
+    background-color: transparent;
+    padding: 0;
+    display: block; /* 使連結佔據整個寬度 */
     margin: 5px 0;
 }
 
