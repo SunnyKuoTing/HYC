@@ -44,8 +44,8 @@
     <div class="icon">⚔️</div>
     <h1>NTIP SIMOPS QUEST</h1>
     <p class="sub">廠商施工預報系統<br>Vendor Work Item Registration</p>
-    <a id="enterBtn" class="enter" href="https://script.google.com/macros/s/AKfycbytQPSzw-zQeBWBa0bClnuvp97JFa7cxfmKEN0zniBa1k-2fZ0iAVbCkUlCtVvEAfSmUg/exec?mobile=1" onclick="return enterVendor(event)">進入 Vendor Web</a>
-    <div class="hint">點擊後系統會顯示讀取畫面，請勿重複點擊。</div>
+    <a id="enterBtn" class="enter" href="https://script.google.com/macros/s/AKfycbytQPSzw-zQeBWBa0bClnuvp97JFa7cxfmKEN0zniBa1k-2fZ0iAVbCkUlCtVvEAfSmUg/exec" onclick="return enterVendor(event)">進入 Vendor Web</a>
+    <div class="hint">點擊後系統會顯示讀取畫面，請勿重複點擊。QR 進入時會自動使用手機介面。</div>
   </main>
 
   <div id="loading" class="loading" aria-live="polite">
@@ -59,7 +59,11 @@
   </div>
 
 <script>
-const TARGET_URL = 'https://script.google.com/macros/s/AKfycbytQPSzw-zQeBWBa0bClnuvp97JFa7cxfmKEN0zniBa1k-2fZ0iAVbCkUlCtVvEAfSmUg/exec?mobile=1';
+const FORMAL_URL = 'https://script.google.com/macros/s/AKfycbytQPSzw-zQeBWBa0bClnuvp97JFa7cxfmKEN0zniBa1k-2fZ0iAVbCkUlCtVvEAfSmUg/exec';
+const MOBILE_URL = 'https://script.google.com/macros/s/AKfycbytQPSzw-zQeBWBa0bClnuvp97JFa7cxfmKEN0zniBa1k-2fZ0iAVbCkUlCtVvEAfSmUg/exec?mobile=1';
+const params = new URLSearchParams(window.location.search);
+const FROM_QR = params.get('from') === 'qr';
+const TARGET_URL = FROM_QR ? MOBILE_URL : FORMAL_URL;
 let entering = false;
 let timer = null;
 
