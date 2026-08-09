@@ -2,71 +2,114 @@
 <html lang="zh-Hant">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#071426">
   <title>NTIP Vendor Web</title>
-
   <style>
-    body {
-      margin: 0;
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: #071426;
-      color: white;
-      font-family: Arial, "Noto Sans TC", sans-serif;
-    }
-
-    .card {
-      width: min(420px, 88vw);
-      padding: 32px 24px;
-      text-align: center;
-      background: #0b213d;
-      border: 2px solid #35d07f;
-      border-radius: 16px;
-    }
-
-    h1 {
-      font-size: 24px;
-      margin-bottom: 12px;
-    }
-
-    p {
-      color: #b8c9dc;
-      line-height: 1.6;
-    }
-
-    .enter {
-      display: block;
-      margin-top: 26px;
-      padding: 18px 16px;
-      background: #20b968;
-      color: white;
-      text-decoration: none;
-      font-size: 20px;
-      font-weight: bold;
-      border-radius: 12px;
-    }
+    *{box-sizing:border-box}
+    html,body{margin:0;min-height:100%;background:#071426;color:#fff;font-family:Arial,"Noto Sans TC",sans-serif}
+    body{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:18px;
+      background:
+      radial-gradient(circle at 10% 0%,rgba(47,128,237,.20),transparent 36%),
+      radial-gradient(circle at 100% 12%,rgba(34,211,238,.12),transparent 30%),
+      linear-gradient(160deg,#071426,#030914 72%)}
+    .card{width:min(440px,94vw);padding:28px 20px;border:2px solid #3ee28f;border-radius:16px;
+      background:rgba(8,28,52,.94);box-shadow:0 18px 55px rgba(0,0,0,.45);text-align:center}
+    .icon{font-size:54px;filter:drop-shadow(0 0 10px #ffbd2e);margin-bottom:8px}
+    h1{font-size:24px;margin:0 0 8px;color:#ffbd2e}
+    .sub{font-size:14px;color:#c9d8eb;line-height:1.65;margin:0 0 22px}
+    .enter{display:block;width:100%;border:2px solid #68f0ad;border-radius:12px;padding:16px 14px;
+      background:linear-gradient(180deg,#18a864,#0a6840);color:#fff;text-decoration:none;
+      font-size:18px;font-weight:900;box-shadow:0 5px 0 #063d27;cursor:pointer;touch-action:manipulation}
+    .enter:active{transform:translateY(2px);box-shadow:0 3px 0 #063d27}
+    .enter.disabled{opacity:.45;pointer-events:none;transform:none;box-shadow:none}
+    .hint{font-size:12px;color:#8ea8c7;margin-top:16px;line-height:1.6}
+    .loading{display:none;position:fixed;inset:0;z-index:9999;background:rgba(0,7,16,.94);
+      align-items:center;justify-content:center;padding:20px}
+    .loading.show{display:flex}
+    .loader-card{width:min(430px,92vw);border:2px solid #ffbd2e;background:#07192f;border-radius:15px;
+      padding:25px 20px;text-align:center;box-shadow:0 0 35px rgba(255,189,46,.16)}
+    .spinner{width:58px;height:58px;border:6px solid #18395f;border-top-color:#ffbd2e;border-radius:50%;
+      margin:0 auto 16px;animation:spin .8s linear infinite}
+    @keyframes spin{to{transform:rotate(360deg)}}
+    .loader-title{font-weight:900;color:#ffbd2e;font-size:15px;letter-spacing:.4px}
+    .loader-detail{color:#b7c9df;font-size:12px;margin-top:7px;line-height:1.5}
+    .progress{height:18px;margin-top:17px;border:2px solid #ffbd2e;border-radius:10px;background:#03101e;overflow:hidden}
+    .bar{height:100%;width:8%;background:linear-gradient(90deg,#1667c9,#22d3ee,#ffbd2e);transition:width .18s ease}
+    .pct{font-size:12px;color:#ffe29b;margin-top:7px}
   </style>
 </head>
-
 <body>
-
-  <div class="card">
-
+  <main class="card">
+    <div class="icon">⚔️</div>
     <h1>NTIP SIMOPS QUEST</h1>
+    <p class="sub">廠商施工預報系統<br>Vendor Work Item Registration</p>
+    <a id="enterBtn" class="enter" href="https://script.google.com/macros/s/AKfycbytQPSzw-zQeBWBa0bClnuvp97JFa7cxfmKEN0zniBa1k-2fZ0iAVbCkUlCtVvEAfSmUg/exec?mobile=1" onclick="return enterVendor(event)">進入 Vendor Web</a>
+    <div class="hint">點擊後系統會顯示讀取畫面，請勿重複點擊。</div>
+  </main>
 
-    <p>
-      廠商施工預報系統<br>
-      Vendor Work Item Registration
-    </p>
-
-    <a class="enter"
-       href="https://script.google.com/macros/s/AKfycbytQPSzw-zQeBWBa0bClnuvp97JFa7cxfmKEN0zniBa1k-2fZ0iAVbCkUlCtVvEAfSmUg/exec">
-       進入 Vendor Web
-    </a>
-
+  <div id="loading" class="loading" aria-live="polite">
+    <div class="loader-card">
+      <div class="spinner"></div>
+      <div class="loader-title">LOADING VENDOR WEB...</div>
+      <div class="loader-detail">正在開啟廠商施工預報系統，請勿重複點擊。</div>
+      <div class="progress"><div id="bar" class="bar"></div></div>
+      <div id="pct" class="pct">8%</div>
+    </div>
   </div>
 
+<script>
+const TARGET_URL = 'https://script.google.com/macros/s/AKfycbytQPSzw-zQeBWBa0bClnuvp97JFa7cxfmKEN0zniBa1k-2fZ0iAVbCkUlCtVvEAfSmUg/exec?mobile=1';
+let entering = false;
+let timer = null;
+
+function enterVendor(ev) {
+  if (ev) ev.preventDefault();
+  if (entering) return false;
+  entering = true;
+
+  const btn = document.getElementById('enterBtn');
+  const loading = document.getElementById('loading');
+  const bar = document.getElementById('bar');
+  const pct = document.getElementById('pct');
+
+  btn.classList.add('disabled');
+  btn.setAttribute('aria-disabled','true');
+  loading.classList.add('show');
+
+  let p = 8;
+  const paint = () => {
+    bar.style.width = p + '%';
+    pct.textContent = p + '%';
+  };
+  paint();
+
+  timer = setInterval(() => {
+    if (p < 88) {
+      p = Math.min(88, p + (p < 45 ? 11 : 6));
+      paint();
+    }
+  }, 120);
+
+  // Give the loading UI enough time to paint before navigation.
+  setTimeout(() => {
+    clearInterval(timer);
+    p = 96;
+    paint();
+    window.location.assign(TARGET_URL);
+  }, 650);
+
+  return false;
+}
+
+// If the user comes back with the browser Back button, unlock the button.
+window.addEventListener('pageshow', () => {
+  entering = false;
+  if (timer) clearInterval(timer);
+  document.getElementById('loading').classList.remove('show');
+  document.getElementById('enterBtn').classList.remove('disabled');
+  document.getElementById('enterBtn').removeAttribute('aria-disabled');
+});
+</script>
 </body>
 </html>
